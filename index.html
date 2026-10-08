@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OSSM Lighthouse: latest version</title>
+<style>
+  body { margin: 0; font-family: "Segoe UI", Arial, sans-serif; color: #000; background: #fff; line-height: 1.5; }
+  main { max-width: 640px; margin: 64px auto; padding: 0 24px; }
+  h1 { color: #003DA5; font-size: 26px; font-weight: 600; margin: 0 0 16px; }
+  .version { font-size: 20px; font-weight: 600; margin: 0 0 24px; }
+  code { font-family: Consolas, "Courier New", monospace; background: #F4F7FB; padding: 1px 4px; }
+  a { color: #003DA5; }
+</style>
+</head>
+<body>
+<main>
+  <h1>OSSM Lighthouse</h1>
+  <p class="version">Latest version: <span id="version"><a href="ossm-version.json">see ossm-version.json</a></span></p>
+  <p>OSSM Lighthouse reads <a href="ossm-version.json"><code>ossm-version.json</code></a> from this site to tell its
+     users when a new version is out. Nothing is sent to it.</p>
+  <p>The releases themselves are in the OSSM Releases folder (P&amp;G sign-in). In the app, choose
+     <strong>Help › Check for Updates…</strong></p>
+</main>
+<script>
+  fetch("ossm-version.json", { cache: "no-store" })
+    .then(function (response) { return response.json(); })
+    .then(function (latest) {
+      document.getElementById("version").textContent =
+        latest.version + (latest.critical ? " (a critical fix: please install it soon)" : "");
+    })
+    .catch(function () {});
+</script>
+</body>
+</html>
